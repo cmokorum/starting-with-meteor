@@ -23,5 +23,9 @@
       "server": "server/main.js"
     },
     "testModule": "tests/main.js"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.10",
+    "postcss-nesting": "^13.0.2"
   }
 }
