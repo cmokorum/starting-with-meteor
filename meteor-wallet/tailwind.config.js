@@ -3,8 +3,6 @@ module.exports = {
     './imports/ui/**/*.{js,jsx,ts,tsx}',
     './client/**/*.{js,jsx,ts,tsx}',
   ],
-  theme: {
-    extend: {},
-  },
+  theme: { extend: {} },
   plugins: [],
 };

@@ -18,28 +18,28 @@ export const ContactList = () => {
 
     return (
         <>
-            <h3>
+            <h3 className="text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
                 Contact List
             </h3>
-            <ul>
-                {contacts.map(contact => (
-                    <li key={contact._id} >
-                        <img
-                            src={
-                                contact.imageUrl &&
-                                (contact.imageUrl.startsWith('http') || contact.imageUrl.startsWith('data:image'))
-                                    ? contact.imageUrl
-                                    : "https://placehold.co/40x40"
-                            }
-                            alt={contact.name || "Imagen"}
-                            style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "20%", marginRight: "8px" }}
-                            onError={e => { e.target.onerror = null; e.target.src = "https://placehold.co/40x40"; }}
-                        />
-                        {contact.name} - {contact.email}
-                        <button type="button" onClick={() => deleteContact(contact._id)}>🗑️</button>
+        <ul className="divide-y divide-gray-100">
+            {contacts.map(contact => (
+                    <li key={contact.email} className="flex justify-between gap-x-6 py-5">
+                        <div className="flex min-w-0 gap-x-4">
+                            <img alt="" src={contact.imageUrl} className="size-12 flex-none rounded-full bg-gray-50" />
+                            <div className="min-w-0 flex-auto">
+                            <p className="text-sm/6 font-semibold text-gray-900">{contact.name}</p>
+                            <p className="mt-1 truncate text-xs/5 text-gray-500">{contact.email}</p>
+                            </div>
+                        </div>
+                        <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                            <button type="button" onClick={() => deleteContact(contact._id)}>🗑️</button>
+                            <div className="mt-1 flex items-center gap-x-1.5">
+                            </div>
+                        </div>
                     </li>
                 ))}
-            </ul>
+            </ul>    
         </>
     )
 }
+
