@@ -6,7 +6,7 @@ import { App } from '../imports/ui/App';
 import './main.css';
 
 Meteor.startup(() => {
-  const container = document.getElementById('react-target');
-  const root = createRoot(container);
-  root.render(<App />);
+	const container = document.getElementById('react-target');
+	const root = createRoot(container);
+	root.render(<App />);
 });

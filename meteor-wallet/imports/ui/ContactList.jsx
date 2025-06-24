@@ -3,6 +3,8 @@ import { ContactsCollection } from "../api/ContactsCollection";
 import { useTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
+// NO pongas publicaciones aquí
+
 export const ContactList = () => {
     useTracker(() => {
         Meteor.subscribe('contacts');

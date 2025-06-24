@@ -1,24 +1,36 @@
-import React , { useState } from "react"
-import { ContactsCollection } from "../api/ContactsCollection";
+import React from "react";
+import { Meteor } from 'meteor/meteor';
+import { ErrorAlert } from "./components/ErrorAlert";
+import { SuccessAlert } from "./components/Success";
 export const ContactForm = () => {
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
+    const [name, setName] = React.useState("");
+    const [email, setEmail] = React.useState("");
+    const [imageUrl, setImageUrl] = React.useState("");
+    const [error, setError] = React.useState("");
+    const [success, setSuccess] = React.useState("");
 
     const saveContact = () => {
-        ContactsCollection.insert({name,email,imageUrl});
-        setName("");
-        setEmail("");
-        setImageUrl("");
+        Meteor.call('contacts.insert', { name, email, imageUrl }, (errorResponse) => {
+            if (errorResponse) {
+              setError(errorResponse.error)
+            } else {
+                setName("");
+                setEmail("");
+                setImageUrl("");
+                setSuccess("Contact Save.");
+            }
+        });
     }
     return (
       <form className="mt-6">
+        {error && <ErrorAlert message={error} /> }
+        {success && <SuccessAlert message={success} />}
           <div className="grid grid-cols-6 gap-6">
             <div className="col-span-6 sm:col-span-6 lg:col-span-2">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
               <input 
-                  className="mt-1 block w-full border border-gray-300 ronded-md shdow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   id="name"
                   value={name}
                   type="text" 
@@ -28,7 +40,7 @@ export const ContactForm = () => {
             <div className="col-span-6 sm:col-span-6 lg:col-span-2">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700" >Email</label>
               <input 
-                  className="mt-1 block w-full border border-gray-300 ronded-md shdow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   value={email}
                   type="email" 
                   id='email' 
@@ -37,7 +49,7 @@ export const ContactForm = () => {
           <div className="col-span-6 sm:col-span-6 lg:col-span-2">
             <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700" >Image URL</label>
             <input 
-                className="mt-1 block w-full border border-gray-300 ronded-md shdow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={imageUrl}
                 type="text"
                 id='imageUrl' 

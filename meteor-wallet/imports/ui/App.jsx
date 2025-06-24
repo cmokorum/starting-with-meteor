@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ContactForm } from './ContactForm';
 import { ContactList } from './ContactList';
-import Header from './Header';
+import { Header } from './Header';
 
 export const App = () => {
   const [view, setView] = useState('contacts'); // 'contacts' o 'add-contacts'
