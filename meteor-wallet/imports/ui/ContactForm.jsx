@@ -7,18 +7,32 @@ export const ContactForm = () => {
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [imageUrl, setImageUrl] = React.useState("");
+    
     const [error, setError] = React.useState("");
     const [success, setSuccess] = React.useState("");
 
+    const showError = ({ message }) => {
+      setError(message)
+      setTimeout( () => {
+        etError("")
+      }, 5000);
+    }
+
+    const showSuccess = ({ message }) => {
+      setSuccess(message);
+      setTimeout( () => {
+        setSuccess("") 
+      }, 5000);
+    }
     const saveContact = () => {
         Meteor.call('contacts.insert', { name, email, imageUrl }, (errorResponse) => {
             if (errorResponse) {
-              setError(errorResponse.error)
+              showError({ message: errorResponse.error })
             } else {
                 setName("");
                 setEmail("");
                 setImageUrl("");
-                setSuccess("Contact Save.");
+                showSuccess({ message: "Contact Save." })
             }
         });
     }
